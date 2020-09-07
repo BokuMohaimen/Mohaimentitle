@@ -1,0 +1,6 @@
+name: Mohaimen-Title
+version: 1.0
+main: mtitle.mohaimentitle.MohaimenTitle
+api-version: 1.16
+commands:
+  mtitle:
