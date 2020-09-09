@@ -16,6 +16,7 @@ object mohatitle:CommandExecutor {
             p.sendMessage("§e-----${prefix}§e-----")
             p.sendMessage("")
             p.sendMessage("§d/mtitle <main> <sub> <intime> <time> <outtime>")
+            p.sendMessage("§d[*]を使うと空白を入れれます")
             p.sendMessage("")
             p.sendMessage("§e---------------------")
             return true
@@ -23,40 +24,18 @@ object mohatitle:CommandExecutor {
 
         var main = ""
         var sub = ""
-        var time = 60
+        if(args.size>=1)main = args[0].replace("&","§").replace("*"," ")
+        if(args.size>=2)sub = args[1].replace("&","§").replace("*"," ")
         var Itime = 2
+        var time = 60
         var Otime = 2
-        var mode = "main"
-        for (i in args.indices) {
-            if (mode == "main") {
-                mode = "sub"
-                main = main + args[i].replace("&", "§")
-            }
-            if (mode == "sub") {
-                mode = "Itime"
-                sub = sub + args[i].replace("&", "§")
-
-            }
-            if (mode == "Itime") {
-                try {
-                    Itime = args[i].toInt() * 20
-                    mode = "time"
-                } catch (e: NumberFormatException) {
-                    if (mode == "time") {
-                        try {
-                            time = args[i].toInt() * 20
-                            mode = "Otime"
-                        } catch (e: NumberFormatException) {
-                        }
-                    }
-                }
-            }
-            if (mode == "Otime") {
-                try {
-                    Otime = args[i].toInt() * 20
-                } catch (e: NumberFormatException) {
-                }
-            }
+        try {
+            if(args.size>=3)Itime = args[2].toInt() * 20
+            if(args.size>=4)time = args[3].toInt() * 20
+            if(args.size>=5)Otime = args[4].toInt() * 20
+        } catch (e: NumberFormatException) {
+            //時間が数字じゃない！
+            return true
         }
         for (player in Bukkit.getOnlinePlayers()) {
             player.playSound(player.location, Sound.ENTITY_WITHER_SPAWN, 1f, 1f)
