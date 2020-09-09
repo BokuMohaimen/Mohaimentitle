@@ -29,18 +29,23 @@ object mohatitle:CommandExecutor {
         var mode = "main"
         for (i in args.indices) {
             if (mode == "main") {
+                mode = "sub"
                 main = main + args[i].replace("&", "§")
             }
             if (mode == "sub") {
+                mode = "Itime"
                 sub = sub + args[i].replace("&", "§")
+
             }
             if (mode == "Itime") {
                 try {
                     Itime = args[i].toInt() * 20
+                    mode = "time"
                 } catch (e: NumberFormatException) {
                     if (mode == "time") {
                         try {
                             time = args[i].toInt() * 20
+                            mode = "Otime"
                         } catch (e: NumberFormatException) {
                         }
                     }
@@ -57,6 +62,6 @@ object mohatitle:CommandExecutor {
             player.playSound(player.location, Sound.ENTITY_WITHER_SPAWN, 1f, 1f)
             player.sendTitle(main, sub, Itime, time, Otime)
         }
+        return false
     }
-    return false
 }
