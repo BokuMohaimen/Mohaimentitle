@@ -1,6 +1,8 @@
 package mtitle.mohaimentitle
 
 import org.bukkit.Bukkit
+import org.bukkit.Bukkit.getConsoleSender
+import org.bukkit.Bukkit.getServer
 import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -11,14 +13,13 @@ var prefix = "§e§l[Mohatitle]§r"
 
 object mohatitle:CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
-        val p = sender as Player
         if (args.isEmpty()) {
-            p.sendMessage("§e-----${prefix}§e-----")
-            p.sendMessage("")
-            p.sendMessage("§d/mtitle <main> <sub> <intime> <time> <outtime>")
-            p.sendMessage("§d[*]を使うと空白を入れれます")
-            p.sendMessage("")
-            p.sendMessage("§e---------------------")
+            sender.sendMessage("§e-----${prefix}§e-----")
+            sender.sendMessage("")
+            sender.sendMessage("§d/mtitle <main> <sub> <intime> <time> <outtime>")
+            sender.sendMessage("§d[*]を使うと空白を入れれます")
+            sender.sendMessage("")
+            sender.sendMessage("§e---------------------")
             return true
         }
 
