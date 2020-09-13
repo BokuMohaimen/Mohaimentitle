@@ -1,13 +1,10 @@
 package mtitle.mohaimentitle
 
 import org.bukkit.Bukkit
-import org.bukkit.Bukkit.getConsoleSender
-import org.bukkit.Bukkit.getServer
 import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 
 var prefix = "§e§l[Mohatitle]§r"
 
@@ -16,7 +13,7 @@ object mohatitle:CommandExecutor {
         if (args.isEmpty()) {
             sender.sendMessage("§e-----${prefix}§e-----")
             sender.sendMessage("")
-            sender.sendMessage("§d/mtitle <main> <sub> <intime> <time> <outtime>")
+            sender.sendMessage("§d/mtitle <main> <sub> <intime> <time> <outtime> <sound>")
             sender.sendMessage("§d[*]を使うと空白を入れれます")
             sender.sendMessage("")
             sender.sendMessage("§e---------------------")
@@ -25,8 +22,10 @@ object mohatitle:CommandExecutor {
 
         var main = ""
         var sub = ""
+        var sound = "entity.wither.spawn"
         if(args.size>=1)main = args[0].replace("&","§").replace("*"," ")
         if(args.size>=2)sub = args[1].replace("&","§").replace("*"," ")
+        if(args.size>=6)sound = args[5]
         var Itime = 2
         var time = 60
         var Otime = 2
@@ -39,7 +38,7 @@ object mohatitle:CommandExecutor {
             return true
         }
         for (player in Bukkit.getOnlinePlayers()) {
-            player.playSound(player.location, Sound.ENTITY_WITHER_SPAWN, 1f, 1f)
+            player.playSound(player.location, sound, 1f, 1f)
             player.sendTitle(main, sub, Itime, time, Otime)
         }
         return false
